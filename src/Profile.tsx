@@ -14,6 +14,15 @@ export default function Profile() {
   let products: string = topTab == "Products" ? "#f18f1a" : "black";
   let seller: string = topTab == "Seller" ? "#f18f1a" : "black";
 
+  function Properties(title: string, description: string): React.ReactElement {
+    return (
+      <View>
+        <Text style={styles.title}>{title}</Text>
+        <Text>{description}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -56,10 +65,8 @@ export default function Profile() {
           <View style={styles.companyDetailsCard}>
             <Text style={styles.title}>Company Details</Text>
             <View style={styles.card}>
-              <Avatar.Image
-                size={100}
-                source={require("../assets/image.png")}
-              />
+              <Avatar.Image size={90} source={require("../assets/image.png")} />
+              <View>{Properties("Operator ID:", "7364873264783")}</View>
             </View>
           </View>
         </View>
