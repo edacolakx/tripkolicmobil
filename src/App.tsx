@@ -1,11 +1,22 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Login from "./Login";
 import Profile from "./Profile";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { PaperProvider } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Bookings from "./Bookings";
+import Invoice from "./Invoice";
+import Messages from "./Messages";
+import Report from "./Report";
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Users from "./Users";
+import Products from "./Products";
+import Seller from "./Seller";
 
 // Navigasyon için tip tanımlamaları
 export type RootStackParamList = {
@@ -15,25 +26,83 @@ export type RootStackParamList = {
 
 export type TabParamList = {
   Profile: undefined;
+  Bookings: undefined;
+  Invoice: undefined;
+  Messages: undefined;
+  Report: undefined;
+};
+
+export type TopTabParamList = {
+  Profile: undefined;
+  Users: undefined;
+  Products: undefined;
+  Seller: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const TopTab = createMaterialTopTabNavigator<TopTabParamList>();
 
 function Home() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#4db5ce",
+        tabBarActiveTintColor: "#f18f1a",
         tabBarInactiveTintColor: "gray",
       }}
     >
       <Tab.Screen
+        name="Bookings"
+        component={Bookings}
+        options={{
+          tabBarLabel: "Bookings",
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name="menu" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Invoice"
+        component={Invoice}
+        options={{
+          tabBarLabel: "Invoice",
+          tabBarIcon: ({ color, size }) => (
+            <View style={{ transform: [{ rotate: "-90deg" }] }}>
+              <FontAwesome5 name="file-invoice" size={24} color={color} />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Messages"
+        component={Messages}
+        options={{
+          tabBarLabel: "Messages",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="envelope" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Report"
+        component={Report}
+        options={{
+          tabBarLabel: "Report",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="chart-box-outline"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: "Profil",
+          tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
@@ -55,3 +124,45 @@ export default function App() {
     </PaperProvider>
   );
 }
+
+function ProfileTab() {
+  return (
+    <TopTab.Navigator
+      screenOptions={{
+        tabBarStyle: styles.tabBar,
+        tabBarItemStyle: styles.tabBarItem,
+        tabBarIndicatorStyle: styles.tabBarIndicator,
+        tabBarActiveTintColor: "#f18f1a",
+        tabBarInactiveTintColor: "black",
+      }}
+    >
+      <TopTab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={24} />
+          ),
+        }}
+      />
+      <TopTab.Screen name="Users" component={Users} />
+      <TopTab.Screen name="Products" component={Products} />
+      <TopTab.Screen name="Seller" component={Seller} />
+    </TopTab.Navigator>
+  );
+}
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: "transparent",
+    paddingTop: 30,
+  },
+  tabBarItem: {
+    flexDirection: "row",
+  },
+  tabBarIndicator: {
+    backgroundColor: "#f18f1a",
+    height: 3,
+  },
+});
