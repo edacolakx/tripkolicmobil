@@ -1,24 +1,19 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import Login from "./Login";
-import Profile from "./Profile";
+import Profile from "./BottomTabs/Profile";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { PaperProvider } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Bookings from "./Bookings";
-import Invoice from "./Invoice";
-import Messages from "./Messages";
-import Report from "./Report";
+import Bookings from "./BottomTabs/Bookings";
+import Invoice from "./BottomTabs/Invoice";
+import Messages from "./BottomTabs/Messages";
+import Report from "./BottomTabs/Report";
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Users from "./Users";
-import Products from "./Products";
-import Seller from "./Seller";
 
-// Navigasyon için tip tanımlamaları
 export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
@@ -32,16 +27,8 @@ export type TabParamList = {
   Report: undefined;
 };
 
-export type TopTabParamList = {
-  Profile: undefined;
-  Users: undefined;
-  Products: undefined;
-  Seller: undefined;
-};
-
 const Tab = createBottomTabNavigator<TabParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const TopTab = createMaterialTopTabNavigator<TopTabParamList>();
 
 function Home() {
   return (
@@ -124,45 +111,3 @@ export default function App() {
     </PaperProvider>
   );
 }
-
-function ProfileTab() {
-  return (
-    <TopTab.Navigator
-      screenOptions={{
-        tabBarStyle: styles.tabBar,
-        tabBarItemStyle: styles.tabBarItem,
-        tabBarIndicatorStyle: styles.tabBarIndicator,
-        tabBarActiveTintColor: "#f18f1a",
-        tabBarInactiveTintColor: "black",
-      }}
-    >
-      <TopTab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: "Profile",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={24} />
-          ),
-        }}
-      />
-      <TopTab.Screen name="Users" component={Users} />
-      <TopTab.Screen name="Products" component={Products} />
-      <TopTab.Screen name="Seller" component={Seller} />
-    </TopTab.Navigator>
-  );
-}
-
-const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: "transparent",
-    paddingTop: 30,
-  },
-  tabBarItem: {
-    flexDirection: "row",
-  },
-  tabBarIndicator: {
-    backgroundColor: "#f18f1a",
-    height: 3,
-  },
-});

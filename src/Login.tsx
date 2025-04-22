@@ -5,7 +5,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Button, TextInput } from "react-native-paper";
 import { RootStackParamList } from "./App";
 
-// Navigation prop tipi
 type LoginScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "Login"
