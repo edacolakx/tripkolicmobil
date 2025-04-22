@@ -6,6 +6,21 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
+// Ayrı bir bileşen olarak Properties tanımlayalım
+interface PropertiesProps {
+  title: string;
+  description: string;
+}
+
+function PropertyItem({ title, description }: PropertiesProps) {
+  return (
+    <View>
+      <Text style={styles.title}>{title}</Text>
+      <Text>{description}</Text>
+    </View>
+  );
+}
+
 export default function Profile() {
   const [topTab, setTopTab] = useState<string>("Profile");
 
@@ -13,15 +28,6 @@ export default function Profile() {
   let users: string = topTab == "Users" ? "#f18f1a" : "black";
   let products: string = topTab == "Products" ? "#f18f1a" : "black";
   let seller: string = topTab == "Seller" ? "#f18f1a" : "black";
-
-  function Properties(title: string, description: string): React.ReactElement {
-    return (
-      <View>
-        <Text style={styles.title}>{title}</Text>
-        <Text>{description}</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -66,7 +72,13 @@ export default function Profile() {
             <Text style={styles.title}>Company Details</Text>
             <View style={styles.card}>
               <Avatar.Image size={90} source={require("../assets/image.png")} />
-              <View>{Properties("Operator ID:", "7364873264783")}</View>
+              <View style={styles.propertyContainer}>
+                <PropertyItem
+                  title="Operator ID:"
+                  description="7364873264783"
+                />
+                <PropertyItem title="j" description="jn" />
+              </View>
             </View>
           </View>
         </View>
@@ -121,5 +133,9 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
+  },
+  propertyContainer: {
+    marginLeft: 10,
+    justifyContent: "center",
   },
 });
